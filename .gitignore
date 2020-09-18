@@ -1,0 +1,11 @@
+*~
+*.bak
+*.idea
+*.iml
+public
+.stack-work
+*.sublime-project
+*.sublime-workspace
+*.swp
+tags
+target
