@@ -1,5 +1,5 @@
 ---
-title: 'Magic Triangle Brainteaser Solution using Haskell'
+title: 'Magic Triangle Brainteaser - Solution'
 author: Frank Jung
 geometry: margin=25mm
 header-includes:
@@ -15,7 +15,8 @@ I first saw this puzzle in [CSIRO](https://www.csiro.au/)'s [Double
 Helix](https://doublehelixshop.csiro.au/)
 [here](https://blog.doublehelix.csiro.au/a-magic-triangle-brainteaser/).
 
-The problem we are solving is described as:
+The [Magic Triangle](https://en.wikipedia.org/wiki/Magic_triangle_(mathematics))
+problem we are solving is described as:
 
 You are given a triangle with circle on each point and on each side:
 
@@ -27,7 +28,7 @@ number.
 
 Finally, sum each side to 10.
 
-## Solution
+## Method
 
 Let's label the triangle: starting from any vertex label the nodes:
 
@@ -146,14 +147,38 @@ Using one other Haskell refinement we can write this as:
 [
   [(a,b,c), (c,d,e), (e,f,a)] | [a,b,c,d,e,f] <- permutations [1..6],
     all (==10) [a+b+c, c+d+e, e+f+a] &&
-    a > c &&
-    c > e
+    a > c && c > e
 ]
 ```
+
+![Solved Magic Triangle](files/magic-triangle-solution.png)
 
 Check your answer on CSIRO page
 [here](https://blog.doublehelix.csiro.au/a-magic-triangle-brainteaser/#answer).
 
 ## Using Python
 
-To do ...
+[Python](https://www.python.org/) now has [list
+comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+just like many
+[other](https://en.wikipedia.org/wiki/Comparison_of_programming_languages_(list_comprehension))
+programming languages, so the solution is much the same. Also, use the built-in
+[permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations)
+function from [itertools](https://docs.python.org/3/library/itertools.html):
+
+```python
+import itertools
+
+[
+  [(a,b,c),(c,d,e),(e,f,a)]
+    for a,b,c,d,e,f in list(itertools.permutations(range(1,7)))
+      if a+b+c == 10 and c+d+e == 10 and e+f+a == 10
+        and a > c and c > e
+]
+```
+
+Which yields the same results as our previous solution in Haskell:
+
+```text
+  >>> [[(5, 2, 3), (3, 6, 1), (1, 4, 5)]]
+```
