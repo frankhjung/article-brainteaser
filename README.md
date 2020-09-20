@@ -1,5 +1,5 @@
 ---
-title: 'Magic Triangle Brainteaser - Solution'
+title: 'Magic Shapes - Solution'
 author: Frank Jung
 geometry: margin=25mm
 header-includes:
@@ -10,6 +10,8 @@ header-includes:
 date: '18 September 2020'
 
 ---
+
+## Magic Triangles
 
 I first saw this puzzle in [CSIRO](https://www.csiro.au/)'s [Double
 Helix](https://doublehelixshop.csiro.au/)
@@ -28,7 +30,7 @@ number.
 
 Finally, sum each side to 10.
 
-## Method
+### Method
 
 Let's label the triangle: starting from any vertex label the nodes:
 
@@ -44,7 +46,7 @@ The method to solve this problem is broken into the following steps:
 
     - and final condition: `a + b +c == 10`
 
-### Using Haskell
+#### Using Haskell
 
 All permutations of numbers 1 to 6:
 
@@ -156,7 +158,7 @@ Using one other Haskell refinement we can write this as:
 Check your answer on CSIRO page
 [here](https://blog.doublehelix.csiro.au/a-magic-triangle-brainteaser/#answer).
 
-## Using Python
+### Using Python
 
 [Python](https://www.python.org/) now has [list
 comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
@@ -182,3 +184,78 @@ Which yields the same results as our previous solution in Haskell:
 ```text
   >>> [[(5, 2, 3), (3, 6, 1), (1, 4, 5)]]
 ```
+
+## Magic Pentagons
+
+In figure below the pentagon has 10 circles, 5 at each corner, 5 in the middles
+of the edges. Place the numbers 1 to 10 in the circles so that each side sums to
+the same value.
+
+![Magic Pentagon](files/magic-pentagon.png)
+
+### Method
+
+Find solutions where all sides sum to equal value. First label the corners:
+
+![Labelled Magic Pentagon](files/magic-pentagon-labelled.png)
+
+Now, using a similar method to the magic triangles, search all permutations for
+which the sums of sides are equal. Here we limit the search to just the first
+result for a given sum total.
+
+```haskell
+import Data.List
+import Data.Maybe
+
+solve :: Int -> Maybe [(Int,Int,Int)]
+solve n
+    | null ns   = Nothing
+    | otherwise = Just (head ns)
+    where ns = [ [(a,b,c), (c,d,e), (e,f,g), (g,h,i), (i,j,a)]
+                  | [a,b,c,d,e,f,g,h,i,j] <- permutations [1..10],
+                    all (==n) [a+b+c, c+d+e, e+f+g, g+h+i, i+j+a] ]
+```
+
+Now solve for minimum sum of a side to maximum sum:
+
+```haskell
+-- solve for sums 10 to 27
+solutions = map solve [10..27]
+```
+
+Technically we could restrict this range further as I just choose the minimum
+and maximum of a side given the numbers 1..10.
+
+And show solutions:
+
+```haskell
+-- show solutions
+zip [10..27] solutions
+```
+
+Which gives the solutions as:
+
+```text
+10: Nothing
+11: Nothing
+12: Nothing
+13: Nothing
+14: Just [(3,6,5),(5,7,2),(2,8,4),(4,9,1),(1,10,3)]
+15: Nothing
+16: Just [(5,2,9),(9,4,3),(3,6,7),(7,8,1),(1,10,5)]
+17: Just [(6,9,2),(2,7,8),(8,5,4),(4,3,10),(10,1,6)]
+18: Nothing
+19: Just [(8,5,6),(6,4,9),(9,3,7),(7,2,10),(10,1,8)]
+20: Nothing
+21: Nothing
+22: Nothing
+23: Nothing
+24: Nothing
+25: Nothing
+26: Nothing
+27: Nothing
+```
+
+[Attached](pentagons-solution.ipynb) is a Jupyter notebook using
+[IHaskell](https://github.com/gibiansky/IHaskell) which can be used to run this
+example.

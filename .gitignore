@@ -2,6 +2,7 @@
 *.bak
 *.idea
 *.iml
+.ipynb_checkpoints/
 public
 .stack-work
 *.sublime-project
