@@ -256,8 +256,8 @@ Which gives the solutions as:
 27: Nothing
 ```
 
-[Attached](files/pentagons-solution.ipynb) is a Jupyter notebook using
-[IHaskell](https://github.com/gibiansky/IHaskell) which can be used to run this
-example. The [other](files/maths-problems.ipynb) notebook is on other problems
-from Dr Stephen Weissenhofer of School of Computing, Data and Mathematical
-Sciences at [Western Sydney University](https://westernsydney.edu.au).
+See also other [solutions](files/maths-problems.ipynb) to problems. This use a
+Jupyter notebook using [IHaskell](https://github.com/gibiansky/IHaskell). These
+problems were kindly privided by my friend, Dr Stephen Weissenhofer of School of
+Computing, Data and Mathematical Sciences at [Western Sydney
+University](https://westernsydney.edu.au).
