@@ -44,7 +44,7 @@ The method to solve this problem is broken into the following steps:
 
     - `a + b + c == c + d + e == e + f + a`
 
-    - and final condition: `a + b +c == 10`
+    - and final condition: `a + b + c == 10`
 
 #### Using Haskell
 
